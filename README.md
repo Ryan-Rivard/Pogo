@@ -1,2 +1,2 @@
 # Pogo
-Git repo cli tool written in Go
+Git repo cli wizard written in Go
