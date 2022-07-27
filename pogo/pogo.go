@@ -1,7 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"io"
+	"log"
+	"os"
+	"os/exec"
 
 	"github.com/AlecAivazis/survey/v2"
 )
@@ -44,5 +49,22 @@ func main() {
 		return
 	}
 
-	fmt.Printf("%s chose %s.", answers.Name, answers.FavoriteColor)
+	fmt.Printf("%s chose %s.\n", answers.Name, answers.FavoriteColor)
+
+	cmd := exec.Command("git", "version")
+
+	var stdBuffer bytes.Buffer
+	mw := io.MultiWriter(os.Stdout, &stdBuffer)
+
+	cmd.Stdout = mw
+	cmd.Stderr = mw
+
+	// Execute the command
+	if err := cmd.Run(); err != nil {
+		log.Panic(err)
+	}
+
+	// automatically see it on the terminal
+	// log.Println(stdBuffer.String())
+
 }
