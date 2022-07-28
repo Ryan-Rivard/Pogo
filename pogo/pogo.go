@@ -14,32 +14,23 @@ import (
 // the questions to ask
 var qs = []*survey.Question{
 	{
-		Name:      "name",
-		Prompt:    &survey.Input{Message: "What is your name?"},
-		Validate:  survey.Required,
-		Transform: survey.Title,
-	},
-	{
-		Name: "color",
+		Name: "gitcommand",
 		Prompt: &survey.Select{
-			Message: "Choose a color:",
-			Options: []string{"red", "blue", "green"},
-			Default: "red",
+			Message: "What would you like to do?",
+			Options: []string{"init", "clone", "log", "switch/branch", "add", "reset", "diff/status", "commit", "restore", "merge", "rebase", "tag"},
+			Default: "status",
 		},
 	},
-	{
-		Name:   "age",
-		Prompt: &survey.Input{Message: "How old are you?"},
-	},
 }
+
+// git add .
+// git reset
 
 func main() {
 	fmt.Println("Hello World")
 
 	answers := struct {
-		Name          string // survey will match the question and field names
-		FavoriteColor string `survey:"color"` // or you can tag fields to match a specific name
-		Age           int    // if the types don't match, survey will convert it
+		GitCommand string `survey:"gitcommand"` // or you can tag fields to match a specific name
 	}{}
 
 	err := survey.Ask(qs, &answers)
@@ -49,9 +40,15 @@ func main() {
 		return
 	}
 
-	fmt.Printf("%s chose %s.\n", answers.Name, answers.FavoriteColor)
+	fmt.Printf("executing command: %s.\n", answers.GitCommand)
 
-	cmd := exec.Command("git", "version")
+	ExecGitCmd(answers.GitCommand)
+
+	// ExecGitCmd("add", ".")
+}
+
+func ExecGitCmd(gitCmd ...string) {
+	cmd := exec.Command("git", gitCmd...)
 
 	var stdBuffer bytes.Buffer
 	mw := io.MultiWriter(os.Stdout, &stdBuffer)
@@ -66,5 +63,4 @@ func main() {
 
 	// automatically see it on the terminal
 	// log.Println(stdBuffer.String())
-
 }
