@@ -1,66 +1,74 @@
 package main
 
 import (
-	"bytes"
+	"flag"
 	"fmt"
-	"io"
 	"log"
-	"os"
-	"os/exec"
 
-	"github.com/AlecAivazis/survey/v2"
+	"github.com/Ryan-Rivard/pogo/myConfig"
 )
-
-// the questions to ask
-var qs = []*survey.Question{
-	{
-		Name: "gitcommand",
-		Prompt: &survey.Select{
-			Message: "What would you like to do?",
-			Options: []string{"init", "clone", "log", "switch/branch", "add", "reset", "diff/status", "commit", "restore", "merge", "rebase", "tag"},
-			Default: "status",
-		},
-	},
-}
 
 // git add .
 // git reset
 
 func main() {
-	fmt.Println("Hello World")
+	process := flag.String("Role", "standalone", "What development role do you have?")
+	flag.Parse()
 
-	answers := struct {
-		GitCommand string `survey:"gitcommand"` // or you can tag fields to match a specific name
-	}{}
+	var options []string
 
-	err := survey.Ask(qs, &answers)
+	if *process == "standalone" {
+		options = []string{
+			//"init",
+			//"log",
+			//"switch",
+			//"branch",
+			"add",
+			//"diff",
+			"status",
+			"commit",
+			"restore",
+			"merge",
+			"rebase",
+			"tag",
+			"exit",
+		}
+	}
 
-	if err != nil {
-		fmt.Println(err.Error())
+	// options = []string{"Setup and Config",
+	// 	"Getting and Creating Projects",
+	// 	"Basic Snapshotting",
+	// 	"Branching and Merging",
+	// 	"Sharing and Updating Projects",
+	// 	"Inspection and Comparison",
+	// 	"Patching",
+	// 	"Debugging",
+	// }
+
+	question := CreateQuestion("Answer", "What would you like to do today?", options, options[0])
+
+	answer := AskSelection(question)
+
+	if answer == "exit" {
+		log.Println("Thank you for using pogo")
 		return
 	}
 
-	fmt.Printf("executing command: %s.\n", answers.GitCommand)
+	fmt.Printf("executing command: %s.\n", answer)
 
-	ExecGitCmd(answers.GitCommand)
-
-	// ExecGitCmd("add", ".")
-}
-
-func ExecGitCmd(gitCmd ...string) {
-	cmd := exec.Command("git", gitCmd...)
-
-	var stdBuffer bytes.Buffer
-	mw := io.MultiWriter(os.Stdout, &stdBuffer)
-
-	cmd.Stdout = mw
-	cmd.Stderr = mw
-
-	// Execute the command
-	if err := cmd.Run(); err != nil {
-		log.Panic(err)
+	var answers []string
+	//--color --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cr) %C(bold blue)<%an>%Creset -%C(yellow)%d%Creset %s' --abbrev-commit
+	if answer == "log" {
+		answers = append(answers, "log")
+		answers = append(answers, "")
 	}
 
-	// automatically see it on the terminal
-	// log.Println(stdBuffer.String())
+	Execute(answer)
+
+	// ExecGitCmd(answers.GitCommand)
+	// Execute(answers.GitCommand)
+
+	myConfig.TestMe()
+	// ExecGitCmd("add", ".") asdf
+
 }
