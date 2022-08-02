@@ -20,6 +20,18 @@ func AskSelection(question []*survey.Question) string {
 	return answers.Answer
 }
 
+func AskMultiSelect(question *survey.MultiSelect) []string {
+	selection := []string{}
+	survey.AskOne(question, &selection)
+	return selection
+}
+
+func AskConfirm(question *survey.Confirm) bool {
+	name := false
+	survey.AskOne(question, &name)
+	return name
+}
+
 func CreateQuestion(name string, message string, options []string, startingPoint string) []*survey.Question {
 	return []*survey.Question{
 		{
@@ -30,5 +42,19 @@ func CreateQuestion(name string, message string, options []string, startingPoint
 				Default: startingPoint,
 			},
 		},
+	}
+}
+
+func CreateMultiSelect(message string, options []string) *survey.MultiSelect {
+	return &survey.MultiSelect{
+		Message: message,
+		Options: options,
+	}
+}
+
+func CreateConfirm(message string) *survey.Confirm {
+	return &survey.Confirm{
+		Default: true,
+		Message: message,
 	}
 }
