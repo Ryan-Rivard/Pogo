@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type pogoAdd struct {
 	git iGit
 }
@@ -7,5 +9,7 @@ type pogoAdd struct {
 func (a *pogoAdd) process() {
 	// 	changedFiles := Execute("git", "ls-files", "-m", "-d", "-o", "--exclude-standard")
 
-	a.git.executeGitCommand("add")
+	fmt.Println("adding all files in directory to stage")
+
+	a.git.executeGitCommand("add", ".")
 }

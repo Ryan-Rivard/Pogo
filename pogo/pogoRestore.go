@@ -1,9 +1,14 @@
 package main
 
+import "fmt"
+
 type pogoRestore struct {
 	git iGit
 }
 
 func (r *pogoRestore) process() {
-	r.git.executeGitCommand("restore")
+
+	fmt.Println("removing all files in directory from stage")
+
+	r.git.executeGitCommand("restore", "--staged", ".")
 }
