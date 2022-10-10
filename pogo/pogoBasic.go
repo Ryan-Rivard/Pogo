@@ -5,7 +5,7 @@ type pogoBasic struct {
 }
 
 func (b *pogoBasic) process() {
-	options := []string{"branch", "fetch", "pull", "push"}
+	options := []string{"init", "clone", "branch", "fetch", "pull", "status", "add", "commit", "push"}
 
 	answer := b.inquier.askWithPresetAnswers("Answer", "Basic - What can pogo do for you today?", options)
 
