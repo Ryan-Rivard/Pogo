@@ -4,12 +4,26 @@ import "flag"
 
 func main() {
 
-	role := flag.String("role", "standalone", "individual developer git commands")
+	role := flag.String("role", "basic", "individual developer git commands")
 	flag.Parse()
+
+	if *role == "basic" {
+		ProcessBasic()
+	}
 
 	if *role == "standalone" {
 		ProcessStandalone()
 	}
+}
+
+func ProcessBasic() {
+	inquier := &inquierService{}
+
+	basic := &pogoBasic{
+		inquier: inquier,
+	}
+
+	basic.process()
 }
 
 func ProcessStandalone() {

@@ -11,13 +11,13 @@ func (s *pogoStandalone) process() {
 
 	answer := s.inquier.askWithPresetAnswers("Answer", "Standalone - What can pogo do for you today?", options)
 
-	if answer == "quit" {
+	if *answer == "quit" {
 		fmt.Println("Thank you for using pogo")
 	}
 
 	git := &gitService{}
 
-	if answer == "init" {
+	if *answer == "init" {
 		processInit := &pogoInit{
 			git: git,
 		}
@@ -25,7 +25,7 @@ func (s *pogoStandalone) process() {
 		processInit.process()
 	}
 
-	if answer == "log" {
+	if *answer == "log" {
 		processLog := &pogoLog{
 			inquier: s.inquier,
 			git:     git,
@@ -34,7 +34,7 @@ func (s *pogoStandalone) process() {
 		processLog.process()
 	}
 
-	if answer == "switch" {
+	if *answer == "switch" {
 		processSwitch := &pogoSwitch{
 			git: git,
 		}
@@ -42,7 +42,7 @@ func (s *pogoStandalone) process() {
 		processSwitch.process()
 	}
 
-	if answer == "branch" {
+	if *answer == "branch" {
 		processBranch := &pogoBranch{
 			git: git,
 		}
@@ -50,7 +50,7 @@ func (s *pogoStandalone) process() {
 		processBranch.process()
 	}
 
-	if answer == "add" {
+	if *answer == "add" {
 		processAdd := &pogoAdd{
 			git: git,
 		}
@@ -58,7 +58,7 @@ func (s *pogoStandalone) process() {
 		processAdd.process()
 	}
 
-	if answer == "diff" {
+	if *answer == "diff" {
 		processDiff := &pogoDiff{
 			git: git,
 		}
@@ -66,7 +66,7 @@ func (s *pogoStandalone) process() {
 		processDiff.process()
 	}
 
-	if answer == "status" {
+	if *answer == "status" {
 		processStatus := &pogoStatus{
 			inquier: s.inquier,
 			git:     git,
@@ -75,7 +75,7 @@ func (s *pogoStandalone) process() {
 		processStatus.process()
 	}
 
-	if answer == "commit" {
+	if *answer == "commit" {
 		processCommit := &pogoCommit{
 			git: git,
 		}
@@ -83,7 +83,7 @@ func (s *pogoStandalone) process() {
 		processCommit.process()
 	}
 
-	if answer == "restore" {
+	if *answer == "restore" {
 		processRestore := &pogoRestore{
 			git: git,
 		}
@@ -91,7 +91,7 @@ func (s *pogoStandalone) process() {
 		processRestore.process()
 	}
 
-	if answer == "merge" {
+	if *answer == "merge" {
 		processMerge := &pogoMerge{
 			git: git,
 		}
@@ -99,7 +99,7 @@ func (s *pogoStandalone) process() {
 		processMerge.process()
 	}
 
-	if answer == "rebase" {
+	if *answer == "rebase" {
 		processRebase := &pogoRebase{
 			git: git,
 		}
@@ -107,7 +107,7 @@ func (s *pogoStandalone) process() {
 		processRebase.process()
 	}
 
-	if answer == "tag" {
+	if *answer == "tag" {
 		processTag := &pogoTag{
 			git: git,
 		}

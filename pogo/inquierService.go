@@ -9,7 +9,7 @@ import (
 type inquierService struct {
 }
 
-func (i *inquierService) askWithPresetAnswers(name string, message string, options []string) string {
+func (i *inquierService) askWithPresetAnswers(name string, message string, options []string) *string {
 	question := i.CreateQuestion(name, message, options, options[0])
 	return i.AskSelection(question)
 }
@@ -27,7 +27,7 @@ func (i *inquierService) CreateQuestion(name string, message string, options []s
 	}
 }
 
-func (i *inquierService) AskSelection(question []*survey.Question) string {
+func (i *inquierService) AskSelection(question []*survey.Question) *string {
 	answers := struct {
 		Answer string
 	}{}
@@ -38,7 +38,7 @@ func (i *inquierService) AskSelection(question []*survey.Question) string {
 		log.Panic(err.Error())
 	}
 
-	return answers.Answer
+	return &answers.Answer
 }
 
 // func AskSelection(question []*survey.Question) string {
