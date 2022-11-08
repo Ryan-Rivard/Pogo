@@ -1,4 +1,4 @@
-package main
+package git
 
 import (
 	"bytes"
@@ -9,10 +9,7 @@ import (
 	"os/exec"
 )
 
-type gitService struct {
-}
-
-func (g *gitService) executeGitCommand(args ...string) {
+func executeGitCommand(args ...string) {
 	cmd := exec.Command("git", args...)
 
 	var stdBuffer bytes.Buffer
