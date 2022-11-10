@@ -1,7 +1,7 @@
 package wizard
 
 import (
-	"github.com/Ryan-Rivard/Pogo/inquire"
+	inquier "github.com/Ryan-Rivard/Pogo/inquire"
 )
 
 func init() {
@@ -20,7 +20,7 @@ func createRootAction(s *Step) func() {
 			options = append(options, step.name)
 		}
 
-		search := inquier.AskWithOptions("What git command would you like to execute?", options)
+		search := inquier.AskWithOptions("What git category would you like to explore?", options)
 
 		for _, step := range s.next {
 			if step.name == *search {

@@ -2,14 +2,13 @@ package git
 
 import (
 	"bytes"
-	"fmt"
 	"io"
 	"log"
 	"os"
 	"os/exec"
 )
 
-func executeGitCommand(args ...string) {
+func ExecuteGitCommand(args ...string) {
 	cmd := exec.Command("git", args...)
 
 	var stdBuffer bytes.Buffer
@@ -23,7 +22,7 @@ func executeGitCommand(args ...string) {
 		log.Panic(err)
 	}
 
-	fmt.Println(stdBuffer.String())
+	// fmt.Println(stdBuffer.String())
 
 	// cmd := exec.Command(program, args...)
 	// stdout, err := cmd.Output()
