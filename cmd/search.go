@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/Ryan-Rivard/Pogo/inquire"
+	// "github.com/Ryan-Rivard/Pogo/inquire"
 	"github.com/spf13/cobra"
 )
 
@@ -14,10 +14,10 @@ var searchCmd = &cobra.Command{
 	Short: "Give all options that pogo can do",
 	Long:  "All git functions that pogo can provide to you",
 	Run: func(cmd *cobra.Command, args []string) {
-		options := []string{"init", "clone", "branch", "fetch", "pull", "status", "add", "commit", "push"}
+		// options := []string{"init", "clone", "branch", "fetch", "pull", "status", "add", "commit", "push"}
 
-		search := inquier.AskWithOptions("search all", options)
+		// search := inquier.AskWithOptions("search all", options)
 
-		println("you selected", *search)
+		// println("you selected", *search)
 	},
 }

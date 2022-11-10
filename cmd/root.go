@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/Ryan-Rivard/Pogo/inquire"
+	"github.com/Ryan-Rivard/Pogo/wizard"
 	"github.com/spf13/cobra"
 	"os"
 )
@@ -12,10 +12,7 @@ var rootCmd = &cobra.Command{
 	Short: "Pogo is a git cli wiard",
 	Long:  "What more do you need?",
 	Run: func(cmd *cobra.Command, args []string) {
-		options := []string{"init", "clone", "branch", "fetch", "pull", "status", "add", "commit", "push"}
-		search := inquier.AskWithOptions("What can pogo do for you?", options)
-
-		println("you selected", *search)
+		wizard.ProcessNoArgs()
 	},
 }
 

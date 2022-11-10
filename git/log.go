@@ -1,5 +1,5 @@
 package git
 
-func ProcessLogCommand() {
+func processLogCommand() {
 	executeGitCommand("log")
 }
