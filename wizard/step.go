@@ -6,7 +6,7 @@ type Step struct {
 
 	// nextStep map[string]*Step
 	next []*Step
-	// prev    *Step
+	prev *Step
 	// options []string
 	// gitCmd []string
 }

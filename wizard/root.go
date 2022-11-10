@@ -20,10 +20,17 @@ func createRootAction(s *Step) func() {
 			options = append(options, step.name)
 		}
 
-		search := inquier.AskWithOptions("What git category would you like to explore?", options)
+		options = append(options, "Exit")
+
+		cat := inquier.AskWithOptions("What git category would you like to explore?", options)
+
+		if *cat == "Exit" {
+			println("Thank you for using pogo")
+			return
+		}
 
 		for _, step := range s.next {
-			if step.name == *search {
+			if step.name == *cat {
 				step.execute()
 				break
 			}
