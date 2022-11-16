@@ -3,7 +3,6 @@ package git
 import (
 	"bytes"
 	"io"
-	"log"
 	"os"
 	"os/exec"
 )
@@ -18,9 +17,11 @@ func ExecuteGitCommand(args ...string) {
 	cmd.Stderr = mw
 
 	// Execute the command
-	if err := cmd.Run(); err != nil {
-		log.Panic(err)
-	}
+	// if err := cmd.Run(); err != nil {
+	// 	log.Panic(err)
+	// }
+
+	///////////////////////////////////////////////
 
 	// fmt.Println(stdBuffer.String())
 

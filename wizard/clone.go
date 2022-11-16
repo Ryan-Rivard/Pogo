@@ -1,8 +1,11 @@
 package wizard
 
-func init() {
-	getting_creatingStep.addNext(cloneStep)
+import (
+	git "github.com/Ryan-Rivard/Pogo/git"
+	inquier "github.com/Ryan-Rivard/Pogo/inquire"
+)
 
+func init() {
 	cloneStep.execute = createCloneAction(cloneStep)
 }
 
@@ -12,6 +15,8 @@ var cloneStep = &Step{
 
 func createCloneAction(s *Step) func() {
 	return func() {
-		println("my clone function goes here")
+		repoUrl := inquier.AskPrompt("What is the url of your repo?")
+
+		git.ExecuteGitCommand("clone", *repoUrl)
 	}
 }

@@ -5,11 +5,7 @@ import (
 )
 
 func init() {
-	rootStep.addNext(getting_creatingStep)
-
 	getting_creatingStep.execute = createGetting_CreatingAction(getting_creatingStep)
-
-	getting_creatingStep.prev = rootStep
 }
 
 var getting_creatingStep = &Step{

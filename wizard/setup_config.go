@@ -5,8 +5,6 @@ import (
 )
 
 func init() {
-	rootStep.addNext(setup_configStep)
-
 	setup_configStep.execute = createSetup_ConfigAction(setup_configStep)
 }
 

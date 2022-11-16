@@ -1,10 +1,10 @@
 package wizard
 
-import (
 // "github.com/Ryan-Rivard/Pogo/inquire"
-)
 
-func ProcessNoArgs() {
+func ProcessRoot() {
+
+	buildTree()
 	// do something here
 
 	// options := []string{
@@ -40,4 +40,22 @@ func ProcessNoArgs() {
 
 	rootStep.execute()
 
+}
+
+func buildTree() {
+	rootStep.addNext(setup_configStep)
+	rootStep.addNext(getting_creatingStep)
+	rootStep.addNext(basic_snapshottingStep)
+	rootStep.addNext(branching_mergingStep)
+	rootStep.addNext(sharing_updatingStep)
+	rootStep.addNext(inspection_comparisonStep)
+	rootStep.addNext(patchingStep)
+	rootStep.addNext(debuggingStep)
+	rootStep.addNext(guidesStep)
+	rootStep.addNext(emailStep)
+	rootStep.addNext(external_systemsStep)
+	rootStep.addNext(administrationStep)
+	rootStep.addNext(server_adminStep)
+	rootStep.addNext(plumbing_commandsStep)
+	rootStep.addNext(exitStep)
 }

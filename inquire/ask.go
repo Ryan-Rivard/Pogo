@@ -1,9 +1,20 @@
 package inquier
 
 import (
-	"github.com/AlecAivazis/survey/v2"
 	"log"
+
+	"github.com/AlecAivazis/survey/v2"
 )
+
+func AskPrompt(message string) *string {
+	ans := ""
+	prompt := &survey.Input{
+		Message: message,
+	}
+
+	survey.AskOne(prompt, &ans)
+	return &ans
+}
 
 func AskWithOptions(message string, options []string) *string {
 	question := []*survey.Question{
