@@ -16,6 +16,9 @@ func ExecuteGitCommand(args ...string) {
 	cmd.Stdout = mw
 	cmd.Stderr = mw
 
+	println(cmd.String())
+	println(stdBuffer.String())
+
 	// Execute the command
 	// if err := cmd.Run(); err != nil {
 	// 	log.Panic(err)

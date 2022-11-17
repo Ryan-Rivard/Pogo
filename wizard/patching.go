@@ -1,15 +1,9 @@
 package wizard
 
-func init() {
-	patchingStep.execute = createPatchingAction(patchingStep)
-}
-
 var patchingStep = &Step{
 	name: "Patching",
-}
-
-func createPatchingAction(s *Step) func() {
-	return func() {
+	next: []*Step{},
+	execute: func(s *Step) {
 		println("my Patching function goes here")
-	}
+	},
 }

@@ -4,16 +4,25 @@ import (
 	inquier "github.com/Ryan-Rivard/Pogo/inquire"
 )
 
-func init() {
-	rootStep.execute = createRootAction(rootStep)
-}
-
 var rootStep = &Step{
 	name: "root",
-}
-
-func createRootAction(s *Step) func() {
-	return func() {
+	next: []*Step{
+		setup_configStep,
+		getting_creatingStep,
+		basic_snapshottingStep,
+		branching_mergingStep,
+		sharing_updatingStep,
+		inspection_comparisonStep,
+		patchingStep,
+		debuggingStep,
+		guidesStep,
+		emailStep,
+		external_systemsStep,
+		administrationStep,
+		server_adminStep,
+		plumbing_commandsStep,
+	},
+	execute: func(s *Step) {
 		options := []string{}
 
 		for _, step := range s.next {
@@ -24,17 +33,9 @@ func createRootAction(s *Step) func() {
 
 		for _, step := range s.next {
 			if step.name == *cat {
-				step.execute()
+				step.execute(step)
 				break
 			}
 		}
-	}
+	},
 }
-
-// func askRoot() *string {
-// 	options := []string{
-// 		"status",
-// 		"version",
-// 	}
-// 	return inquier.AskWithOptions("What git command would you like to execute?", options)
-// }
