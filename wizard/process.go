@@ -11,7 +11,6 @@ func Process(s string) {
 }
 
 func execWizardFromStep(s *Step) {
-	s.prev = exitStep
-	s.build()
+	s.build(exitStep)
 	s.execute(s)
 }

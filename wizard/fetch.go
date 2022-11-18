@@ -5,9 +5,8 @@ import (
 )
 
 var fetchStep = &Step{
-	name: "root",
+	name: "fetch",
 	next: []*Step{},
-	prev: sharing_updatingStep,
 	execute: func(s *Step) {
 		println("executing git fetch")
 		git.ExecuteGitCommand("fetch", "-v")

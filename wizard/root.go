@@ -29,6 +29,8 @@ var rootStep = &Step{
 			options = append(options, step.name)
 		}
 
+		options = append(options, s.prev.name)
+
 		cat := inquier.AskWithOptions("What git category would you like to explore?", options)
 
 		for _, step := range s.next {

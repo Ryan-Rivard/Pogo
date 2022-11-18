@@ -1,9 +1,38 @@
 package wizard
 
+import (
+	inquier "github.com/Ryan-Rivard/Pogo/inquire"
+)
+
 var sharing_updatingStep = &Step{
 	name: "Sharing and Updating Projects",
-	next: []*Step{},
+	next: []*Step{
+		fetchStep,
+	},
 	execute: func(s *Step) {
-		println("my Sharing and Updating Projects function goes here")
+		options := []string{}
+
+		for _, step := range s.next {
+			options = append(options, step.name)
+		}
+
+		if s.prev.name == "Exit" {
+			options = append(options, s.prev.name)
+		} else {
+			options = append(options, "Back")
+		}
+
+		cat := inquier.AskWithOptions("Sharing and Updating:", options)
+
+		if *cat == "Back" {
+			s.prev.execute(s.prev)
+		}
+
+		for _, step := range s.next {
+			if step.name == *cat {
+				step.execute(step)
+				break
+			}
+		}
 	},
 }
