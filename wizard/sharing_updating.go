@@ -8,6 +8,8 @@ var sharing_updatingStep = &Step{
 	name: "Sharing and Updating Projects",
 	next: []*Step{
 		fetchStep,
+		pullStep,
+		pushStep,
 	},
 	execute: func(s *Step) {
 		options := []string{}
@@ -26,6 +28,7 @@ var sharing_updatingStep = &Step{
 
 		if *cat == "Back" {
 			s.prev.execute(s.prev)
+			return
 		}
 
 		for _, step := range s.next {

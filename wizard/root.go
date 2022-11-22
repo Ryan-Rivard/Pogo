@@ -33,6 +33,11 @@ var rootStep = &Step{
 
 		cat := inquier.AskWithOptions("What git category would you like to explore?", options)
 
+		if *cat == s.prev.name {
+			s.prev.execute(s)
+			return
+		}
+
 		for _, step := range s.next {
 			if step.name == *cat {
 				step.execute(step)
