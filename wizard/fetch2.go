@@ -4,10 +4,10 @@ import (
 	git "github.com/Ryan-Rivard/Pogo/git"
 )
 
-var fetchStep = &Step{
+var fetchStep = &Step2{
 	name: "Fetch",
-	next: []*Step{},
-	execute: func(s *Step) {
+	next: []*Step2{},
+	execute: func(s *Step2) {
 		println("executing git fetch")
 		git.ExecuteGitCommand("fetch", "-v")
 	},

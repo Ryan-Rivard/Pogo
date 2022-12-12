@@ -14,6 +14,8 @@ var fetchCmd = &cobra.Command{
 	Short: "fetch the most recent changes",
 	Long:  `fetch the mostmostmost recent changes`,
 	Run: func(cmd *cobra.Command, args []string) {
-		wizard.Process("fetch")
+		//wizard.Process("fetch")
+		tree := wizard.BuildComposite()
+		tree.Execute()
 	},
 }
