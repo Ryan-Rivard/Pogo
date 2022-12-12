@@ -12,4 +12,5 @@ type Ask struct {
 
 func (a *Ask) Execute() {
 	println("processing")
+	a.Components[0].Execute()
 }

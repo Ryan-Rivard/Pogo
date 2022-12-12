@@ -7,7 +7,7 @@ func BuildComposite() Step {
 		Question: "Question",
 		Components: []Step{
 			&Cmd{
-				arg: "fetch",
+				arg: "status",
 			},
 		},
 	}
