@@ -10,11 +10,16 @@ import (
 // Does the actual work
 
 type Cmd struct {
+	Id  string
 	arg string
 }
 
-func (w *Cmd) Execute() {
-	cmd := exec.Command("git", w.arg)
+func (c *Cmd) GetId() string {
+	return c.Id
+}
+
+func (c *Cmd) Execute() {
+	cmd := exec.Command("git", c.arg)
 	stdout, err := cmd.Output()
 
 	if err != nil {
