@@ -13,7 +13,7 @@ var rootCmd = &cobra.Command{
 	Short: "Pogo is a git cli wiard",
 	Long:  "What more do you need?",
 	Run: func(cmd *cobra.Command, args []string) {
-		tree := wizard.BuildComposite()
+		tree := wizard.BuildRootComposite()
 		tree.Execute()
 	},
 }

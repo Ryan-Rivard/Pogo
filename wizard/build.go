@@ -2,17 +2,17 @@ package wizard
 
 // Builder Pattern
 
-func BuildComposite() Step {
+func BuildRootComposite() Step {
 	return &Ask{
 		Id:       "Root",
 		Question: "What would you like to do today?",
 		Components: []Step{
-			BuildSnapshottingBranch(),
+			BuildSnapshottingComposite(),
 		},
 	}
 }
 
-func BuildSnapshottingBranch() Step {
+func BuildSnapshottingComposite() Step {
 	return &Ask{
 		Id:       "Basic Snapshotting",
 		Question: "What git comand would you like to run?",
