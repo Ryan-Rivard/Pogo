@@ -39,7 +39,7 @@ func BuildSnapshottingComposite() Step {
 			},
 			&Cmd{
 				Id:  "(restore) Restore working tree files",
-				arg: []string{"restore"},
+				arg: []string{"restore", "."},
 			},
 			&Cmd{
 				Id:  "(reset) Reset current HEAD to the specified state",
