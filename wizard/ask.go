@@ -22,8 +22,6 @@ func (a *Ask) GetId() string {
 }
 
 func (a *Ask) Execute() {
-	println("processing")
-
 	options := []string{}
 
 	for _, com := range a.Components {

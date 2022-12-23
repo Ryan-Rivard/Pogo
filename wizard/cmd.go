@@ -11,7 +11,7 @@ import (
 
 type Cmd struct {
 	Id  string
-	arg string
+	arg []string
 }
 
 func (c *Cmd) GetId() string {
@@ -19,7 +19,7 @@ func (c *Cmd) GetId() string {
 }
 
 func (c *Cmd) Execute() {
-	cmd := exec.Command("git", c.arg)
+	cmd := exec.Command("git", c.arg...)
 	stdout, err := cmd.Output()
 
 	if err != nil {
