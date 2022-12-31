@@ -8,15 +8,15 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(standaloneCmd)
+	rootCmd.AddCommand(participantCmd)
 }
 
-var standaloneCmd = &cobra.Command{
-	Use:   "standalone",
-	Short: "Basic git commands for the standalone individual developer",
+var participantCmd = &cobra.Command{
+	Use:   "participant",
+	Short: "Basic git commands for the participant individual developer",
 	Long:  `https://git-scm.com/docs/everyday#_individual_developer_standaloneindividual_developer_standalone`,
 	Run: func(cmd *cobra.Command, args []string) {
-		tree := wizard.BuildStandaloneComposite()
+		tree := wizard.BuildBasicComposite()
 		tree.Execute()
 	},
 }
