@@ -9,7 +9,7 @@ func BuildStandaloneComposite() Step {
 		Components: []Step{
 			&Cmd{
 				Id:  "(init) Create an empty Git repository or reinitialize an existing one",
-				arg: []string{"init"},
+				arg: []string{"version"},
 			},
 			&Cmd{
 				Id:  "(show-branch) Show branches and their commits",
@@ -74,7 +74,7 @@ func BuildBasicComposite() Step {
 		Components: []Step{
 			&Cmd{
 				Id:  "(init) Create an empty Git repository or reinitialize an existing one",
-				arg: []string{"init"},
+				arg: []string{"version"},
 			},
 			&Cmd{
 				Id:  "(clone) Clone a repository into a new directory",
@@ -146,11 +146,11 @@ func BuildBasicComposite() Step {
 			},
 			&Cmd{
 				Id:  "(pull) Fetch from and integrate with another repository or a local branch",
-				arg: []string{"tag"},
+				arg: []string{"pull"},
 			},
 			&Cmd{
 				Id:  "(revert) Revert some existing commits",
-				arg: []string{"tag"},
+				arg: []string{"revert"},
 			},
 		},
 	}
