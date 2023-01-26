@@ -8,6 +8,10 @@ func BuildStandaloneComposite() Step {
 		Question: "Standalone deverloper: What would you like to do today?",
 		Components: []Step{
 			&Cmd{
+				Id:  "(list-branches) list all branches and most recent commit",
+				arg: []string{"for-each-ref", "--sort=committerdate", "refs/heads/", "--format='%(HEAD) %(refname:short) - %(objectname:short) - %(contents:subject) - %(authorname) %(committerdate:relative)"},
+			},
+			&Cmd{
 				Id:  "(init) Create an empty Git repository or reinitialize an existing one",
 				arg: []string{"version"},
 			},
