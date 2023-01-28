@@ -14,7 +14,7 @@ var rootCmd = &cobra.Command{
 	Long:  "What more do you need?",
 	Run: func(cmd *cobra.Command, args []string) {
 		println("root")
-		tree := wizard.BuildComposite()
+		tree := wizard.BuildDeleteBranchComposite()
 		tree.Exec(nil)
 	},
 }

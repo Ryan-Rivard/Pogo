@@ -1,6 +1,6 @@
 package wizard
 
-func BuildComposite() step {
+func BuildDeleteBranchComposite() step {
 	return &cmd{
 		id:           "list-branch",
 		args:         []string{"for-each-ref", "--sort=committerdate", "refs/heads/", "--format=%(refname:short)"}, // "--format='%(HEAD) %(refname:short) -  %(contents:subject) -  %(authorname) %(committerdate:relative)"},
