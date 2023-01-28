@@ -3,28 +3,33 @@ package wizard
 import (
 	"log"
 	"os/exec"
+	"strings"
 )
 
-// Composite Pattern
-// Leaf Component
-// Does the actual work
-
-type Cmd struct {
-	Id  string
-	arg []string
+type cmd struct {
+	id           string
+	args         []string
+	formatOutput func([]byte) []string
+	step         step
 }
 
-func (c *Cmd) GetId() string {
-	return c.Id
-}
+func (c *cmd) Exec(params []string) {
+	gitParams := append(c.args, params...)
+	cmd := exec.Command("git", gitParams...)
 
-func (c *Cmd) Execute() {
-	cmd := exec.Command("git", c.arg...)
 	stdout, err := cmd.Output()
 
 	if err != nil {
 		log.Panic(err.Error())
 	}
 
-	println(string(stdout))
+	if c.formatOutput != nil {
+		c.step.Exec(c.formatOutput(stdout))
+	}
+
+	c.step.Exec(nil)
+}
+
+func branchListFormat(output []byte) []string {
+	return strings.Split(strings.TrimSpace(string(output)), "\n")
 }

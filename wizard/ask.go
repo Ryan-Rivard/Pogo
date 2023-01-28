@@ -6,69 +6,63 @@ import (
 	"github.com/AlecAivazis/survey/v2"
 )
 
-// Composite pattern
-// Container
-// Element that contains sub-containers and/or leafs
-
-type Ask struct {
-	Id         string
-	Question   string
-	Answer     string
-	Components []Step
+type ask struct {
+	id           string
+	question     string
+	questionType string
+	steps        []step
 }
 
-func (a *Ask) GetId() string {
-	return a.Id
-}
+func (a *ask) Exec(params []string) {
+	if a.questionType == "single" {
+		answer := askWithOptions(a.question, params)
+		// figure out which step to send it to
+		println(answer)
 
-func (a *Ask) Execute() {
-	options := []string{}
-
-	for _, com := range a.Components {
-		options = append(options, com.GetId())
-	}
-
-	answer := askWithOptions(a.Question, options)
-
-	for _, com := range a.Components {
-		if com.GetId() == answer {
-			com.Execute()
-			break
-		}
+	} else if a.questionType == "multi" {
+		answers := askMultiSelect(a.question, params)
+		// always going to be one step
+		a.steps[0].Exec(answers)
 	}
 }
 
-// func askPrompt(message string) *string {
-// 	ans := ""
-// 	prompt := &survey.Input{
-// 		Message: message,
-// 	}
-
-// 	survey.AskOne(prompt, &ans)
-// 	return &ans
-// }
-
-func askWithOptions(message string, options []string) string {
-	question := []*survey.Question{
+func askWithOptions(question string, options []string) string {
+	prompt := []*survey.Question{
 		{
 			Name: "Answer",
 			Prompt: &survey.Select{
-				Message: message,
+				Message: question,
 				Options: options,
-				Default: options[0],
 			},
 		},
 	}
 
-	answers := struct {
+	answer := struct {
 		Answer string
 	}{}
 
-	err := survey.Ask(question, &answers)
+	err := survey.Ask(prompt, &answer)
 
 	if err != nil {
 		log.Panic(err.Error())
 	}
 
-	return answers.Answer
+	return answer.Answer
+}
+
+func askMultiSelect(message string, options []string) []string {
+	prompt := &survey.MultiSelect{
+		Message: message,
+		Options: options,
+	}
+
+	answers := []string{}
+
+	err := survey.AskOne(prompt, &answers)
+
+	if err != nil {
+		log.Panic(err.Error())
+	}
+
+	return answers
 }

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Ryan-Rivard/Pogo/wizard"
 	"github.com/spf13/cobra"
 )
 
@@ -13,8 +12,9 @@ var rootCmd = &cobra.Command{
 	Short: "Pogo is a git cli wiard",
 	Long:  "What more do you need?",
 	Run: func(cmd *cobra.Command, args []string) {
-		tree := wizard.BuildBasicComposite()
-		tree.Execute()
+		println("root")
+		// tree := wizard.BuildBasicComposite()
+		// tree.Execute()
 	},
 }
 
