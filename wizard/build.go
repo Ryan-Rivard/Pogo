@@ -3,7 +3,7 @@ package wizard
 func BuildComposite() step {
 	return &cmd{
 		id:           "list-branch",
-		args:         []string{"for-each-ref", "--sort=committerdate", "refs/heads/", "--format='%(HEAD) %(refname:short) -  %(contents:subject) -  %(authorname) %(committerdate:relative)"},
+		args:         []string{"for-each-ref", "--sort=committerdate", "refs/heads/", "--format=%(refname:short)"}, // "--format='%(HEAD) %(refname:short) -  %(contents:subject) -  %(authorname) %(committerdate:relative)"},
 		formatOutput: branchListFormat,
 		step: &ask{
 			id:           "confirm-delete",
@@ -11,7 +11,8 @@ func BuildComposite() step {
 			questionType: "multi",
 			steps: []step{
 				&cmd{
-					id: "delete-branch",
+					id:   "delete-branch",
+					args: []string{"branch", "-d"},
 				},
 			},
 		},

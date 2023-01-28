@@ -17,17 +17,23 @@ func (c *cmd) Exec(params []string) {
 	gitParams := append(c.args, params...)
 	cmd := exec.Command("git", gitParams...)
 
+	println(cmd.String())
+
 	stdout, err := cmd.Output()
 
 	if err != nil {
 		log.Panic(err.Error())
 	}
 
-	if c.formatOutput != nil {
-		c.step.Exec(c.formatOutput(stdout))
+	if c.step == nil {
+		return
 	}
 
-	c.step.Exec(nil)
+	if c.formatOutput != nil {
+		c.step.Exec(c.formatOutput(stdout))
+	} else {
+		c.step.Exec(nil)
+	}
 }
 
 func branchListFormat(output []byte) []string {
