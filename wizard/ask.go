@@ -7,13 +7,20 @@ import (
 )
 
 type ask struct {
-	id           string
-	question     string
-	questionType string
-	steps        []step
+	id            string
+	question      string
+	questionType  string
+	convertInput  func(interface{}) []string
+	convertOutput func([]string) interface{}
+	steps         []step
 }
 
-func (a *ask) Exec(params []string) {
+func (a *ask) Exec(input interface{}) {
+	params := []string{}
+	if a.convertInput != nil {
+		params = a.convertInput(input)
+	}
+
 	if a.questionType == "single" {
 		answer := askWithOptions(a.question, params)
 		// figure out which step to send it to
@@ -21,8 +28,13 @@ func (a *ask) Exec(params []string) {
 
 	} else if a.questionType == "multi" {
 		answers := askMultiSelect(a.question, params)
+
+		if len(answers) == 0 {
+			println("no selection - exiting")
+			return
+		}
 		// always going to be one step
-		a.steps[0].Exec(answers)
+		a.steps[0].Exec(a.convertOutput(answers))
 	}
 }
 
@@ -65,4 +77,18 @@ func askMultiSelect(message string, options []string) []string {
 	}
 
 	return answers
+}
+
+func importBranchListOptions(input interface{}) []string {
+	b, ok := input.(*branches)
+	if !ok {
+		log.Fatal("boom1")
+	}
+
+	branchList := []string{}
+	for _, branch := range b.branches {
+		branchList = append(branchList, branch.refname)
+	}
+
+	return branchList
 }
