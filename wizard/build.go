@@ -3,14 +3,14 @@ package wizard
 func BuildDeleteBranchComposite() step {
 	return &cmd{
 		id:            "list-branch",
-		args:          []string{"for-each-ref", "--sort=committerdate", "refs/heads/", "--format=%(refname:short)"},
+		args:          []string{"for-each-ref", "--sort=committerdate", "refs/heads/", "--format=%(refname:short)|%(committerdate:relative)"},
 		convertOutput: exportBranchList,
 		step: &ask{
 			id:            "confirm-delete",
 			question:      "Which Branches would you like to delete?",
 			questionType:  "multi",
 			convertInput:  importBranchListOptions,
-			convertOutput: func(s []string) interface{} { return s },
+			convertOutput: exportBranchChoice,
 			steps: []step{
 				&cmd{
 					id:           "delete-branch",

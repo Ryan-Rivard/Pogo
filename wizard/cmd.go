@@ -59,11 +59,12 @@ func importStringSlice(input interface{}) []string {
 // }
 
 func exportBranchList(output []byte) interface{} {
-	s := strings.Split(strings.TrimSpace(string(output)), "\n")
+	slice := strings.Split(strings.TrimSpace(string(output)), "\n")
 	b := []branch{}
 
-	for _, a := range s {
-		b = append(b, branch{refname: a})
+	for _, line := range slice {
+		a := strings.Split(line, "|")
+		b = append(b, branch{refname: a[0], relativeCommitDate: a[1]})
 	}
 
 	return &branches{branches: b}

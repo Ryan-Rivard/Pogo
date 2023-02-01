@@ -1,7 +1,8 @@
 package wizard
 
 type branch struct {
-	refname string
+	refname            string
+	relativeCommitDate string
 }
 
 type branches struct {

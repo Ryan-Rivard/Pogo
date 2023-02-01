@@ -2,6 +2,7 @@ package wizard
 
 import (
 	"log"
+	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
 )
@@ -87,8 +88,18 @@ func importBranchListOptions(input interface{}) []string {
 
 	branchList := []string{}
 	for _, branch := range b.branches {
-		branchList = append(branchList, branch.refname)
+		branchList = append(branchList, branch.refname+"|"+branch.relativeCommitDate)
 	}
 
 	return branchList
+}
+
+func exportBranchChoice(answers []string) interface{} {
+	output := []string{}
+
+	for _, answer := range answers {
+		output = append(output, strings.Split(answer, "|")[0])
+	}
+
+	return output
 }
