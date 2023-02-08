@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/acarl005/stripansi"
 )
 
 type ask struct {
@@ -50,10 +51,7 @@ func askWithOptions(question string, options []string) string {
 		},
 	}
 
-	answer := struct {
-		Answer string
-	}{}
-
+	answer := struct{ Answer string }{}
 	err := survey.Ask(prompt, &answer)
 
 	if err != nil {
@@ -81,14 +79,25 @@ func askMultiSelect(message string, options []string) []string {
 }
 
 func importBranchListOptions(input interface{}) []string {
-	b, ok := input.(*branches)
+	b, ok := input.([]branch)
 	if !ok {
 		log.Fatal("boom1")
 	}
 
+	var Reset = "\033[0m"
+	// var Red = "\033[31m"
+	var Green = "\033[32m"
+	var Yellow = "\033[33m"
+	// var Blue = "\033[34m"
+	// var Purple = "\033[35m"
+	// var Cyan = "\033[36m"
+	// var Gray = "\033[37m"
+	// var White = "\033[97m"
+
 	branchList := []string{}
-	for _, branch := range b.branches {
-		branchList = append(branchList, branch.refname+"|"+branch.relativeCommitDate)
+	for _, branch := range b {
+		branchList = append(branchList,
+			Yellow+branch.refname+Reset+"|"+branch.authorName+"|"+Green+branch.relativeCommitDate+Reset)
 	}
 
 	return branchList
@@ -98,7 +107,7 @@ func exportBranchChoice(answers []string) interface{} {
 	output := []string{}
 
 	for _, answer := range answers {
-		output = append(output, strings.Split(answer, "|")[0])
+		output = append(output, strings.Split(stripansi.Strip(answer), "|")[0])
 	}
 
 	return output

@@ -3,7 +3,7 @@ package wizard
 func BuildDeleteBranchComposite() step {
 	return &cmd{
 		id:            "list-branch",
-		args:          []string{"for-each-ref", "--sort=committerdate", "refs/heads/", "--format=%(refname:short)|%(committerdate:relative)"},
+		args:          []string{"for-each-ref", "--sort=committerdate", "refs/heads/", "--format=%(refname:short)|%(authorname)|%(committerdate:relative)"},
 		convertOutput: exportBranchList,
 		step: &ask{
 			id:            "confirm-delete",

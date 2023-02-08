@@ -30,6 +30,8 @@ func (c *cmd) Exec(input interface{}) {
 		log.Panic(err.Error())
 	}
 
+	println("Output: " + string(stdout))
+
 	if c.step == nil {
 		return
 	}
@@ -64,8 +66,8 @@ func exportBranchList(output []byte) interface{} {
 
 	for _, line := range slice {
 		a := strings.Split(line, "|")
-		b = append(b, branch{refname: a[0], relativeCommitDate: a[1]})
+		b = append(b, branch{refname: a[0], authorName: a[1], relativeCommitDate: a[2]})
 	}
 
-	return &branches{branches: b}
+	return b
 }
