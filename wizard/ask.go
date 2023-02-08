@@ -97,7 +97,7 @@ func importBranchListOptions(input interface{}) []string {
 	branchList := []string{}
 	for _, branch := range b {
 		branchList = append(branchList,
-			Yellow+branch.refname+Reset+"|"+branch.authorName+"|"+Green+branch.relativeCommitDate+Reset)
+			Yellow+branch.refname+Reset+" \u0000 "+branch.authorName+" \u0000 "+Green+branch.relativeCommitDate+Reset)
 	}
 
 	return branchList
@@ -107,7 +107,9 @@ func exportBranchChoice(answers []string) interface{} {
 	output := []string{}
 
 	for _, answer := range answers {
-		output = append(output, strings.Split(stripansi.Strip(answer), "|")[0])
+		strip := stripansi.Strip(answer)
+		split := strings.Split(strip, "\u0000")
+		output = append(output, strings.TrimSpace(split[0]))
 	}
 
 	return output
