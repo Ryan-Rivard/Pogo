@@ -18,3 +18,13 @@ git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(refname:sh
 
 
 git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(refname:short) - %(contents:subject) -  %(authorname) %(committerdate:relative)'
+
+
+
+
+
+git branch -a
+git branch -av
+git branch -vva
+git show-branch -a
+git show-branch -a --list

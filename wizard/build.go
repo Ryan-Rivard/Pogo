@@ -2,7 +2,7 @@ package wizard
 
 func BuildDeleteBranchComposite() step {
 	return &cmd{
-		id:            "list-branch",
+		id:            "list-local-branch",
 		args:          []string{"for-each-ref", "--sort=committerdate", "refs/heads/", "--format=%(refname:short)|%(authorname)|%(committerdate:relative)"},
 		convertOutput: exportBranchList,
 		step: &ask{
@@ -16,6 +16,28 @@ func BuildDeleteBranchComposite() step {
 					id:           "delete-branch",
 					args:         []string{"branch", "-d"},
 					convertInput: importStringSlice,
+				},
+			},
+		},
+	}
+}
+
+func BuildCheckoutBranchComposite() step {
+	return &cmd{
+		id:   "fetch-branches",
+		args: []string{"fetch"},
+		step: &cmd{
+			id:   "list-all-branch",
+			args: []string{"show-branch", "-a", "--list"},
+			step: &ask{
+				id:           "confirm-checkout",
+				question:     "Which branch would you like to checkout?",
+				questionType: "single",
+				steps: []step{
+					&cmd{
+						id:   "checkout-branch",
+						args: []string{"checkout"},
+					},
 				},
 			},
 		},
