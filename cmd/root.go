@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Ryan-Rivard/Pogo/wizard"
 	"github.com/spf13/cobra"
 )
 
@@ -14,8 +13,6 @@ var rootCmd = &cobra.Command{
 	Long:  "What more do you need?",
 	Run: func(cmd *cobra.Command, args []string) {
 		println("root")
-		tree := wizard.BuildDeleteBranchComposite()
-		tree.Exec(nil)
 	},
 }
 

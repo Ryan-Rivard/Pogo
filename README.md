@@ -1,6 +1,13 @@
 # Pogo
 Git repo cli wizard written in Go
 
+ref is a human readable name that references a git commit id
+- branches (main, dev, etc.)
+- tags (v0.1, v0.2)
+- head (latest commit of a branch)
+- HEAD (commit you are currently working on)
+
+
 
 git branch
 // local branches

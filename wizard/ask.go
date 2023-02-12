@@ -97,7 +97,9 @@ func importBranchListOptions(input interface{}) []string {
 	branchList := []string{}
 	for _, branch := range b {
 		branchList = append(branchList,
-			Yellow+branch.refname+Reset+" \u0000 "+branch.authorName+" \u0000 "+Green+branch.relativeCommitDate+Reset)
+			Yellow+branch.commit.refname+Reset+" \u0000 "+
+				branch.commit.authorName+" \u0000 "+
+				Green+branch.commit.relativeCommitDate+Reset)
 	}
 
 	return branchList

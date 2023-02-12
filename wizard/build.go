@@ -4,7 +4,7 @@ func BuildDeleteBranchComposite() step {
 	return &cmd{
 		id:            "list-local-branch",
 		args:          []string{"for-each-ref", "--sort=committerdate", "refs/heads/", "--format=%(refname:short)|%(authorname)|%(committerdate:relative)"},
-		convertOutput: exportBranchList,
+		convertOutput: exportLocalBranchList,
 		step: &ask{
 			id:            "confirm-delete",
 			question:      "Which Branches would you like to delete?",
@@ -27,8 +27,9 @@ func BuildCheckoutBranchComposite() step {
 		id:   "fetch-branches",
 		args: []string{"fetch"},
 		step: &cmd{
-			id:   "list-all-branch",
-			args: []string{"show-branch", "-a", "--list"},
+			id:            "list-all-branch",
+			args:          []string{"for-each-ref", "refs/heads/", "refs/remotes/origin/", "--format=%(refname:short)|%(authorname)|%(committerdate:relative)"},
+			convertOutput: exportBranchList,
 			step: &ask{
 				id:           "confirm-checkout",
 				question:     "Which branch would you like to checkout?",

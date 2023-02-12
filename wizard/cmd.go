@@ -60,14 +60,37 @@ func importStringSlice(input interface{}) []string {
 // 	return []string{b.refname}
 // }
 
+func exportLocalBranchList(output []byte) interface{} {
+	slice := strings.Split(strings.TrimSpace(string(output)), "\n")
+	b := []branch{}
+
+	for _, line := range slice {
+		split := strings.Split(line, "|")
+		b = append(
+			b, branch{
+				commit: commit{
+					refname: split[0], authorName: split[1], relativeCommitDate: split[2],
+				},
+			},
+		)
+	}
+
+	return b
+}
+
 func exportBranchList(output []byte) interface{} {
 	slice := strings.Split(strings.TrimSpace(string(output)), "\n")
 	b := []branch{}
 
 	for _, line := range slice {
-		a := strings.Split(line, "|")
-		b = append(b, branch{refname: a[0], authorName: a[1], relativeCommitDate: a[2]})
+		split := strings.Split(line, "|")
+		b = append(
+			b, branch{
+				commit: commit{
+					refname: split[0], authorName: split[1], relativeCommitDate: split[2],
+				},
+			},
+		)
 	}
-
-	return b
+	return nil
 }
