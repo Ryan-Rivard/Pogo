@@ -81,6 +81,7 @@ func exportLocalBranchList(output []byte) interface{} {
 func exportBranchList(output []byte) interface{} {
 	slice := strings.Split(strings.TrimSpace(string(output)), "\n")
 	b := []branch{}
+	// m := make(map[string]bool)
 
 	for _, line := range slice {
 		split := strings.Split(line, "|")
