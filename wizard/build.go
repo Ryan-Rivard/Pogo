@@ -1,6 +1,6 @@
 package wizard
 
-func BuildDeleteBranchComposite() step {
+func BuildDeleteBranchCompositeV2() step {
 	return &cmd{
 		id:            "list-local-branch",
 		args:          []string{"for-each-ref", "--sort=committerdate", "refs/heads/", "--format=%(refname:short)|%(authorname)|%(committerdate:relative)"},
@@ -18,6 +18,14 @@ func BuildDeleteBranchComposite() step {
 					convertInput: importStringSlice,
 				},
 			},
+		},
+	}
+}
+
+func BuildDeleteBranchComposite() step {
+	return &ListLocalBranch{
+		step: &ConfirmDeleteLocalBranch{
+			step: &DeleteLocalBranch{},
 		},
 	}
 }
