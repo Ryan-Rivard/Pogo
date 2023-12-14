@@ -1,4 +1,4 @@
-# Pogo
+# Pogo 🦘️
 Git repo cli wizard written in Go
 
 ref is a human readable name that references a git commit id
